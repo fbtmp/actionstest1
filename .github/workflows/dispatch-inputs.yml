@@ -11,12 +11,10 @@ on:
           - cschleiden
       message:
         required: true
-        description: The message
       use-emoji:
         type: boolean
         description: Include  emojis
       environment:
-        description: The environment
         type: environment
 
 jobs:
@@ -26,3 +24,9 @@ jobs:
     steps:
       - name: Send greeting
         run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", ""]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
+      - run: echo "${{ github.event.inputs.use-emoji }}"
+      - run: echo "${{ github.event.inputs.use-emoji == 'true' }}"
+      - if: ${{ github.event.inputs.use-emoji == 'true' }}
+        run: echo "true1"
+      - if: ${{ github.event.inputs.use-emoji }}
+        run: echo "true2"
